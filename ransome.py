@@ -1,5 +1,16 @@
 #!/bin/python3
 
+
+# Instructions
+'''
+1. Make a salt for hashing passwords
+2. Use that salt and prompted password to make a key of it for decryption
+3. Encode the derived key with urlsafe_b64encode
+4. Use that key in Fernet To encode/decode files
+5. Define 2 Functions for encrypting single files and folders / Same 2 for decryption
+'''
+
+
 import random, cryptography,pathlib, os, secrets, base64, getpass
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.kdf.scrypt import Scrypt

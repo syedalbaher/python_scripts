@@ -1,0 +1,12 @@
+
+
+ip = 192.168.43.213
+open_ports = 21,22,80,9090
+
+
+flag_1 = FLAG{Whoa this is unexpected} - 10 Points
+flag_2 = FLAG{Yeah d- just don't do it.} - 10 Points
+flag_3 = FLAG {There is no Zeus, in your face!} - 10 Points
+flag_4 = FLAG:{TheyFoundMyBackDoorMorty}-10Points
+flag_5 = FLAG{Flip the pickle Morty!} - 10 Points 
+password = winter
